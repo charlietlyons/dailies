@@ -1,7 +1,10 @@
 li {
+    display: flex;
+    flex-direction: column;
     border: 1px solid black;
-    width: auto;
     text-align: center;
-    padding: 15px 175px;
+    width: 100px;
+    height: auto;
+    padding: 15px 75px;
     margin: 5px;
 }

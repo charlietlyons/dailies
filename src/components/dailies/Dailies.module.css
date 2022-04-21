@@ -3,6 +3,5 @@ ul {
     list-style-type: none;
     position: fixed;
     left: 50%;
-    transform: translateX(-50%);
     top: max(15%, 100px);
 }
