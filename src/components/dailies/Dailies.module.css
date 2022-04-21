@@ -4,4 +4,6 @@ ul {
     position: fixed;
     left: 50%;
     top: max(15%, 100px);
+    transform: translateX(0%);
+
 }
