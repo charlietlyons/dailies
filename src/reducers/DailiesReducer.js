@@ -1,44 +1,40 @@
-import { DELETE_DAILY, SHIFT_DAILIES } from "./Actions";
+import { ADJUST_DAILIES, DELETE_DAILY, SELECT_DAILY } from "./Actions";
 
 const DailiesReducer = (
   state = {
-    selected: { title: "Budget" },
     dailies: [
       { title: "Budget" },
       { title: "Journal" },
       { title: "Email" },
-      { title: "Exercise" },
-      { title: "Work" },
-      { title: "Reading" },
-      { title: "Computer Science" },
-      { title: "One Thing" },
-      { title: "Clean" },
-      { title: "Night Before" },
+      { title: "Exercise" }
     ],
+    selected: { title: "Budget" },
+    offset: 0
   },
   action
 ) => {
-  switch (action.type) {
-    case DELETE_DAILY:
-      const incrementAmount =
-        action.title !== state.dailies[state.dailies.length - 1] ? 1 : -1;
-      const newIndex =
-        state.dailies.indexOf(
-          state.dailies.find((daily) => daily.title === action.title)
-        ) + incrementAmount;
+  const {dailies} = state;
+  switch(action.type) {
+    case SELECT_DAILY:
+      const newSelected = dailies.find(daily => daily.title === action.selected.title)
 
       return {
-        selected: state.dailies[newIndex],
-        dailies: state.dailies.filter((daily) => daily.title !== action.title),
-      };
-    case SHIFT_DAILIES:
+        dailies,
+        selected: newSelected,
+        offset: (dailies.indexOf(newSelected) / dailies.length) * 100
+      }
+    case DELETE_DAILY:
+      const dailyToShiftTo = dailies[dailies.findIndex(daily => action.selected.title === daily.title) + 1];
+      const filteredDailies = dailies.filter(daily => daily.title !== action.selected.title);
+
       return {
-        selected: state.dailies.find((daily) => daily.title === action.title),
-        dailies: state.dailies,
-      };
-    default:
-      return state;
+        dailies: filteredDailies,
+        selected: dailyToShiftTo,
+        offset: (dailies.indexOf(dailyToShiftTo) / filteredDailies.length) * 100
+      }
   }
+
+  return state;
 };
 
 export default DailiesReducer;

@@ -1,28 +1,22 @@
 import Daily from "../daily/Daily";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { SHIFT_DAILIES } from "../../reducers/Actions";
+import { useSelector } from "react-redux";
 
 import styles from "./Dailies.module.css";
+import { useDispatch } from "react-redux";
 
 const Dailies = () => {
   const dailies = useSelector((state) => state.dailies);
-  const selectedDaily = useSelector((state) => state.selected);
-  const offset = (dailies.indexOf(selectedDaily) / dailies.length) * -100;
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch({ type: SHIFT_DAILIES, title: selectedDaily.title });
-  }, []);
+  const offset = useSelector((state) => state.offset);
+  const offsetStyling = {
+      transform: "translateX(-" + offset + "%) translateX(-150px)",
+      transition: "transform .75s ease-in-out",
+    }
 
   return (
     <ul
-      style={{
-        transform: "translateX(" + offset + "%) translateX(-150px)",
-        transition: "transform 1s ease-in-out",
-      }}
+      style={offsetStyling}
     >
-      {dailies.map((daily, index) => {
+      {dailies.length > 0 && dailies.map((daily, index) => {
         return (
           <Daily id={index} title={daily.title}>
             {daily.children ? daily.children : null}
