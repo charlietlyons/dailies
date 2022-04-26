@@ -13,17 +13,18 @@ const Dailies = () => {
     }
 
   return (
-    <ul
-      style={offsetStyling}
-    >
-      {dailies.length > 0 && dailies.map((daily, index) => {
-        return (
-          <Daily id={index} title={daily.title}>
-            {daily.children ? daily.children : null}
-          </Daily>
-        );
-      })}
-    </ul>
+    <div className={styles.dailiesContainer}>
+      <ul style={offsetStyling}>
+        {dailies.length > 0 &&
+          dailies.map((daily, index) => {
+            return (
+              <Daily id={index} title={daily.title}>
+                {daily.children ? daily.children : null}
+              </Daily>
+            );
+          })}
+      </ul>
+    </div>
   );
 };
 
