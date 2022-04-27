@@ -3,6 +3,7 @@ import { DELETE_DAILY, SELECT_DAILY } from "../../reducers/Actions";
 import styles from "./Daily.module.css";
 
 const Daily = (props) => {
+  const { id, title, children } = props
   const dispatch = useDispatch();
 
   return (
@@ -12,8 +13,8 @@ const Daily = (props) => {
         dispatch({ type: SELECT_DAILY, selected: { title: props.title } })
       }
     >
-      <h3>{props.title}</h3>
-      {props.children}
+      <h3>{title}</h3>
+      {children}
       <button
         onClick={() =>
           dispatch({ type: DELETE_DAILY, selected: { title: props.title } })

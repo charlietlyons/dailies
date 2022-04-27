@@ -2,6 +2,7 @@ import Daily from "../daily/Daily";
 import { useSelector } from "react-redux";
 
 import styles from "./Dailies.module.css";
+import { useDispatch } from "react-redux";
 
 const Dailies = () => {
   const dailies = useSelector((state) => state.incompleteDailies);
