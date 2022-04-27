@@ -1,9 +1,11 @@
 ul {
     display: flex;
     list-style-type: none;
-    position: fixed;
+    position: absolute;
     left: 50%;
-    top: max(15%, 100px);
-    transform: translateX(0%);
+}
 
+.dailiesContainer {
+    width: 100%;
+    position: fixed;
 }

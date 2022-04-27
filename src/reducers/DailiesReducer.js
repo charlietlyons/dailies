@@ -1,9 +1,9 @@
-import { DELETE_DAILY, SHIFT_DAILIES } from "./Actions";
+import { DELETE_DAILY, SELECT_DAILY } from "./Actions";
 
 const DailiesReducer = (
   state = {
-    selected: { title: "Budget" },
-    dailies: [
+    completedDailies: [],
+    incompleteDailies: [
       { title: "Budget" },
       { title: "Journal" },
       { title: "Email" },
@@ -15,30 +15,50 @@ const DailiesReducer = (
       { title: "Clean" },
       { title: "Night Before" },
     ],
+    selected: { title: "Budget" },
+    offset: 0,
   },
   action
 ) => {
+  const { incompleteDailies, completedDailies } = state;
   switch (action.type) {
-    case DELETE_DAILY:
-      const incrementAmount =
-        action.title !== state.dailies[state.dailies.length - 1] ? 1 : -1;
-      const newIndex =
-        state.dailies.indexOf(
-          state.dailies.find((daily) => daily.title === action.title)
-        ) + incrementAmount;
+    case SELECT_DAILY:
+      const newSelected = incompleteDailies.find(
+        (daily) => daily.title === action.selected.title
+      );
 
       return {
-        selected: state.dailies[newIndex],
-        dailies: state.dailies.filter((daily) => daily.title !== action.title),
+        incompleteDailies,
+        completedDailies,
+        selected: newSelected,
+        offset:
+          (incompleteDailies.indexOf(newSelected) / incompleteDailies.length) *
+          100,
       };
-    case SHIFT_DAILIES:
+    case DELETE_DAILY:
+      const dailyToShiftTo =
+        incompleteDailies[
+          incompleteDailies.findIndex(
+            (daily) => action.selected.title === daily.title
+          ) + 1
+        ];
+      const filteredDailies = incompleteDailies.filter(
+        (daily) => daily.title !== action.selected.title
+      );
+      const newCompletedDailies = completedDailies.map(daily => daily);
+      newCompletedDailies.push(action.selected);
+
       return {
-        selected: state.dailies.find((daily) => daily.title === action.title),
-        dailies: state.dailies,
+        incompleteDailies: filteredDailies,
+        completedDailies: newCompletedDailies,
+        selected: dailyToShiftTo,
+        offset:
+          (incompleteDailies.indexOf(dailyToShiftTo) / filteredDailies.length) *
+          100,
       };
-    default:
-      return state;
   }
+
+  return state;
 };
 
 export default DailiesReducer;
