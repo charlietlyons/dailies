@@ -9,10 +9,12 @@ import Percentage from "./components/percentage/Percentage";
 import { useSelector } from "react-redux";
 
 const App = () => {
+  const isLoggedIn = useSelector((store) => store.login.isLoggedIn);
   const percentage = useSelector((store) => {
     return (
       (store.dailies.completedDailies.length /
-        (store.dailies.incompleteDailies.length + store.dailies.completedDailies.length)) *
+        (store.dailies.incompleteDailies.length +
+          store.dailies.completedDailies.length)) *
       100
     );
   });
@@ -20,8 +22,7 @@ const App = () => {
   return (
     <section>
       <Header>Dailies</Header>
-      <Percentage percentage={percentage} />
-      <Dailies />
+      {isLoggedIn && <Percentage percentage={percentage} /> && <Dailies />}
       <Login />
     </section>
   );
