@@ -1,14 +1,15 @@
-import { useState, useCallback, Fragment } from "react";
-import { useDispatch, useSelector, useStore } from "react-redux";
+import { useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { LOGIN } from "../../reducers/Actions";
+import useInput from "../common/hooks/useInput";
 
 import styles from "./Login.module.css";
 
 const Login = () => {
   const isLoggedIn = useSelector((store) => store.login.isLoggedIn);
   const [shouldReveal, setShouldReveal] = useState(false);
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, changeUserHandler] = useInput("");
+  const [password, changePasswordHandler] = useInput("");
 
   const dispatch = useDispatch();
 
@@ -24,19 +25,6 @@ const Login = () => {
   const revealHandler = useCallback(() => {
     setShouldReveal(!shouldReveal);
   }, [shouldReveal, setShouldReveal]);
-
-  const changeUserHandler = useCallback(
-    (event) => {
-      setUser(event.target.value);
-    },
-    [setUser]
-  );
-  const changePasswordHandler = useCallback(
-    (event) => {
-      setPassword(event.target.value);
-    },
-    [setPassword]
-  );
 
   return (
     !isLoggedIn && (

@@ -3,6 +3,7 @@ import fonts from "./components/common/css/fonts.css";
 import styles from "./App.css";
 
 import Login from "./components/login/Login";
+import Register from "./components/register/Register";
 import Header from "./components/header/Header";
 import Dailies from "./components/dailies/Dailies";
 import Percentage from "./components/percentage/Percentage";
@@ -24,6 +25,7 @@ const App = () => {
       <Header>Dailies</Header>
       {isLoggedIn && <Percentage percentage={percentage} /> && <Dailies />}
       <Login />
+      <Register />
     </section>
   );
 };
