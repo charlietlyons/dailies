@@ -1,0 +1,11 @@
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.loginBox {
+    position:fixed;
+    height: auto;
+    border: 1px black;
+    background-color: antiquewhite;
+}

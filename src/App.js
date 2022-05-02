@@ -2,6 +2,7 @@ import colors from "./components/common/css/colors.css";
 import fonts from "./components/common/css/fonts.css";
 import styles from "./App.css";
 
+import Login from "./components/login/Login";
 import Header from "./components/header/Header";
 import Dailies from "./components/dailies/Dailies";
 import Percentage from "./components/percentage/Percentage";
@@ -21,6 +22,7 @@ const App = () => {
       <Header>Dailies</Header>
       <Percentage percentage={percentage} />
       <Dailies />
+      <Login />
     </section>
   );
 };
