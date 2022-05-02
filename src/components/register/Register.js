@@ -7,29 +7,25 @@ import styles from "./Register.module.css";
 
 const Register = () => {
   const [shouldReveal, setShouldReveal] = useState(false);
-  const [user, setUser] = useInput("");
-  const [password, setPassword] = useInput("");
-  const [passwordConfirmation, setPasswordConfirmation] = useInput("");
+  const [user, setUser] = useInput();
+  const [password, setPassword] = useInput();
+  const [passwordConfirmation, setPasswordConfirmation] = useInput();
 
   const dispatch = useDispatch();
 
-  const submitHandler = useCallback((event) => {
-    event.preventDefault();
-
-    if (
-      user &&
-      password &&
-      passwordConfirmation &&
-      password === passwordConfirmation
-    ) {
-      alert("Dispatching register event...");
-      dispatch({
-        type: REGISTER,
-        user,
-        password,
-      });
-    }
-  }, []);
+  const submitHandler = useCallback(
+    (event) => {
+      event.preventDefault();
+      if (password === passwordConfirmation) {
+        dispatch({
+          type: REGISTER,
+          user: user,
+          password: password,
+        });
+      }
+    },
+    [user, password, passwordConfirmation]
+  );
 
   const revealHandler = useCallback(() => {
     setShouldReveal(!shouldReveal);

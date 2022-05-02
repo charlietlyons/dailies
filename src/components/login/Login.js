@@ -20,7 +20,7 @@ const Login = () => {
       user,
       password,
     });
-  });
+  }, [user, password]);
 
   const revealHandler = useCallback(() => {
     setShouldReveal(!shouldReveal);
