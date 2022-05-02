@@ -11,8 +11,8 @@ import { useSelector } from "react-redux";
 const App = () => {
   const percentage = useSelector((store) => {
     return (
-      (store.completedDailies.length /
-        (store.incompleteDailies.length + store.completedDailies.length)) *
+      (store.dailies.completedDailies.length /
+        (store.dailies.incompleteDailies.length + store.dailies.completedDailies.length)) *
       100
     );
   });
