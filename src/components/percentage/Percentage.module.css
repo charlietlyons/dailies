@@ -1,4 +1,13 @@
-h1 {
+.percentage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    width: 100px;
+    height: 100px;
+    background-color: var(--percentageColor);
+}
+
+.percentage h1 {
     padding: 15px
 }

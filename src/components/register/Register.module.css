@@ -4,8 +4,8 @@ form {
 }
 
 .registerBox {
-    position:fixed;
-    left: 100px;
+    position: fixed;
+    right: 2vw;
     height: auto;
     border: 1px black;
     background-color: antiquewhite;

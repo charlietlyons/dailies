@@ -14,7 +14,7 @@ const Dailies = () => {
 
   return (
     <div className={styles.dailiesContainer}>
-      <ul style={offsetStyling}>
+      <ul style={offsetStyling} className={styles.dailies}>
         {dailies.length > 0 &&
           dailies.map((daily, index) => {
             return (

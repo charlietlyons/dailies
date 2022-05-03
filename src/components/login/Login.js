@@ -43,7 +43,9 @@ const Login = () => {
   return (
     !isLoggedIn && (
       <div className={styles.loginBox}>
-        <button onClick={revealHandler}>Login</button>
+        <button onClick={revealHandler} className={styles.loginButton}>
+          Login
+        </button>
         {shouldReveal && (
           <form onSubmit={submitHandler}>
             <label htmlFor="user">Username</label>
