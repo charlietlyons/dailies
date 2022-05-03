@@ -1,6 +1,9 @@
 import { REGISTER, LOGIN } from "./Actions";
 import bcrypt from "bcryptjs";
 
+// TODO: bring in env to store said salt
+const SALT = 10;
+
 export default function LoginReducer(
   state = {
     isLoggedIn: false,
@@ -12,7 +15,7 @@ export default function LoginReducer(
   switch (type) {
     case REGISTER:
       if (user && password) {
-        bcrypt.hash(password, 10, async (err, hash) => {
+        bcrypt.hash(password, SALT, (err, hash) => {
           fetch("http://localhost:3001/user/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -21,17 +24,15 @@ export default function LoginReducer(
               password: hash,
             }),
           })
-            .then(async (response) => await response.json())
-            .then(async (data) => console.log(await data));
+            .then((response) => response.json())
+            .then((data) => console.log(data));
         });
       }
-
-      return state;
     case LOGIN:
-      if (user !== null && password !== null) {
-        return {
-          isLoggedIn: true,
-        };
+      if (user && password) {
+          return {
+              isLoggedIn: action.status === "good"
+          }
       }
   }
 

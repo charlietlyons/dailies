@@ -15,11 +15,25 @@ const Login = () => {
 
   const submitHandler = useCallback((event) => {
     event.preventDefault();
-    dispatch({
-      type: LOGIN,
-      user,
-      password,
-    });
+
+    fetch("http://localhost:3001/user/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user: user,
+        password: password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch({
+          type: LOGIN,
+          user: user,
+          password: password,
+          status: data.status,
+        });
+      });
+    
   }, [user, password]);
 
   const revealHandler = useCallback(() => {
