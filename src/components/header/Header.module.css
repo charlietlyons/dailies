@@ -8,5 +8,5 @@ header {
     align-items: center;
     background-color: var(--headerColor);
     height: max(10%, 100px);
-    width: auto;
+    width: 100%;
 }

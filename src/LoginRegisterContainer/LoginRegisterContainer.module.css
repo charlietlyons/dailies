@@ -1,0 +1,14 @@
+.loginRegisterContainer {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    height: 5vh;
+}
+
+.loginRegisterContainer button {
+    background-color: var(--headerColor);
+    border: none;
+    width: 45vw;
+    height: 5vh;
+}

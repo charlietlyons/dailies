@@ -1,0 +1,11 @@
+form {
+    display: flex;
+}
+
+.loginBox {
+    position: fixed;
+    left: 2vw;
+    height: auto;
+    border: 1px black;
+    background-color: antiquewhite;
+}

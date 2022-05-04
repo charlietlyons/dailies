@@ -5,8 +5,8 @@ import styles from "./Dailies.module.css";
 import { useDispatch } from "react-redux";
 
 const Dailies = () => {
-  const dailies = useSelector((state) => state.incompleteDailies);
-  const offset = useSelector((state) => state.offset);
+  const dailies = useSelector((state) => state.dailies.incompleteDailies);
+  const offset = useSelector((state) => state.dailies.offset);
   const offsetStyling = {
     transform: "translateX(-" + offset + "%) translateX(-150px)",
     transition: "transform .75s ease-in-out",
@@ -14,7 +14,7 @@ const Dailies = () => {
 
   return (
     <div className={styles.dailiesContainer}>
-      <ul style={offsetStyling}>
+      <ul style={offsetStyling} className={styles.dailies}>
         {dailies.length > 0 &&
           dailies.map((daily, index) => {
             return (

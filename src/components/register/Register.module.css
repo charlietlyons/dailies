@@ -1,0 +1,12 @@
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.registerBox {
+    position: fixed;
+    right: 2vw;
+    height: auto;
+    border: 1px black;
+    background-color: antiquewhite;
+}
