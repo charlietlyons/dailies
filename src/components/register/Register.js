@@ -1,6 +1,4 @@
 import { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { REGISTER } from "../../reducers/Actions";
 import useInput from "../common/hooks/useInput";
 
 import styles from "./Register.module.css";
@@ -11,17 +9,22 @@ const Register = () => {
   const [password, setPassword] = useInput();
   const [passwordConfirmation, setPasswordConfirmation] = useInput();
 
-  const dispatch = useDispatch();
-
   const submitHandler = useCallback(
     (event) => {
       event.preventDefault();
-      if (password === passwordConfirmation) {
-        dispatch({
-          type: REGISTER,
-          user: user,
-          password: password,
-        });
+      if (user && password && password === passwordConfirmation) {
+        fetch("http://localhost:3001/user/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user: user,
+            password: password,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          });
       }
     },
     [user, password, passwordConfirmation]

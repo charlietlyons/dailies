@@ -6,7 +6,9 @@ import LoginRegisterContainer from "./LoginRegisterContainer/LoginRegisterContai
 import Header from "./components/header/Header";
 import Dailies from "./components/dailies/Dailies";
 import Percentage from "./components/percentage/Percentage";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { LOGIN } from "./reducers/Actions";
 
 const App = () => {
   const isLoggedIn = useSelector((store) => store.login.isLoggedIn);
@@ -18,6 +20,22 @@ const App = () => {
       100
     );
   });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetch("http://localhost:3001/user/access", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem("PADS_TOKEN"),
+      },
+    }).then((response) => {
+      dispatch({
+        type: LOGIN,
+        status: response.status === 200 ? "good" : "bad",
+      });
+    });
+  }, [isLoggedIn]);
 
   return (
     <section>
