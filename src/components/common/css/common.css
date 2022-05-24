@@ -1,0 +1,19 @@
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    background-color: var(--buttonColor);
+    transition: opacity .15s ease-in-out;
+}
+
+button:hover {
+    opacity: .75;
+}
+
+button:active {
+    transition: none;
+    opacity: 1;
+    background-color: var(--activeColor);
+}

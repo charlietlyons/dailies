@@ -1,12 +1,12 @@
 import { useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { LOGIN } from "../../reducers/Actions";
 import useInput from "../common/hooks/useInput";
 
 import styles from "./Login.module.css";
 
-const Login = () => {
-  const [shouldReveal, setShouldReveal] = useState(false);
+const Login = (props) => {
+  const { shouldReveal } = props;
   const [user, changeUserHandler] = useInput("");
   const [password, changePasswordHandler] = useInput("");
 
@@ -38,29 +38,23 @@ const Login = () => {
     [user, password]
   );
 
-  const revealHandler = useCallback(() => {
-    setShouldReveal(!shouldReveal);
-  }, [shouldReveal, setShouldReveal]);
-
   return (
     <div className={styles.loginBox}>
-      <button onClick={revealHandler} className={styles.loginButton}>
-        Login
-      </button>
-      {shouldReveal && (
-        <form onSubmit={submitHandler}>
-          <label htmlFor="user">Username</label>
-          <input id="user" value={user} onChange={changeUserHandler} />
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={changePasswordHandler}
-          />
-          <input type="submit" value="Login" />
-        </form>
-      )}
+      <form
+        onSubmit={submitHandler}
+        className={`${shouldReveal ? styles.open : ""} ${styles.loginForm}`}
+      >
+        <label htmlFor="user">Username</label>
+        <input id="user" value={user} onChange={changeUserHandler} />
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={changePasswordHandler}
+        />
+        <input type="submit" value="Login" />
+      </form>
     </div>
   );
 };

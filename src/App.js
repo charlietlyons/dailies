@@ -1,5 +1,6 @@
 import colors from "./components/common/css/colors.css";
 import fonts from "./components/common/css/fonts.css";
+import common from "./components/common/css/common.css";
 import styles from "./App.css";
 
 import LoginRegisterContainer from "./LoginRegisterContainer/LoginRegisterContainer";

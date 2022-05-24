@@ -1,14 +1,19 @@
 .loginRegisterContainer {
+    width: 100%;
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
     list-style: none;
-    padding: 0;
-    height: 5vh;
+    padding-left: 0;
 }
 
 .loginRegisterContainer button {
-    background-color: var(--headerColor);
     border: none;
-    width: 45vw;
-    height: 5vh;
+    padding: 10px 50px;
+
+}
+
+.loginRegisterContainer li {
+    border: none;
+    width: auto;
 }

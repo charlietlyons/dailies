@@ -1,12 +1,17 @@
-form {
-    display: flex;
-    flex-direction: column;
+.registerBox {
+    height: auto;
+    background-color: rgb(222, 230, 234);
 }
 
-.registerBox {
-    position: fixed;
-    right: 2vw;
-    height: auto;
-    border: 1px black;
-    background-color: antiquewhite;
+.registerForm {
+    transition: height 1s ease, padding 1s linear;
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
+    height: 0px;
+}
+
+.open {
+    height: 150px;
+    padding: 15px;
 }

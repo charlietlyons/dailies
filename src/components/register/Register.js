@@ -3,8 +3,8 @@ import useInput from "../common/hooks/useInput";
 
 import styles from "./Register.module.css";
 
-const Register = () => {
-  const [shouldReveal, setShouldReveal] = useState(false);
+const Register = (props) => {
+  const { shouldReveal } = props;
   const [user, setUser] = useInput();
   const [password, setPassword] = useInput();
   const [passwordConfirmation, setPasswordConfirmation] = useInput();
@@ -30,34 +30,32 @@ const Register = () => {
     [user, password, passwordConfirmation]
   );
 
-  const revealHandler = useCallback(() => {
-    setShouldReveal(!shouldReveal);
-  }, [shouldReveal, setShouldReveal]);
-
   return (
     <div className={styles.registerBox}>
-      <button onClick={revealHandler}>Register</button>
-      {shouldReveal && (
-        <form onSubmit={submitHandler}>
-          <label htmlFor="user">Username</label>
-          <input id="register-user" value={user} onChange={setUser} />
-          <label htmlFor="password">Password</label>
-          <input
-            id="register-password"
-            type="password"
-            value={password}
-            onChange={setPassword}
-          />
-          <label htmlFor="confirm-password">Confirm Password</label>
-          <input
-            id="confirm-password"
-            type="password"
-            value={passwordConfirmation}
-            onChange={setPasswordConfirmation}
-          />
-          <input type="submit" value="Register" />
-        </form>
-      )}
+      <form
+        onSubmit={submitHandler}
+        className={`${styles.registerForm} ${
+          shouldReveal ? styles.open : styles.close
+        }`}
+      >
+        <label htmlFor="user">Username</label>
+        <input id="register-user" value={user} onChange={setUser} />
+        <label htmlFor="password">Password</label>
+        <input
+          id="register-password"
+          type="password"
+          value={password}
+          onChange={setPassword}
+        />
+        <label htmlFor="confirm-password">Confirm Password</label>
+        <input
+          id="confirm-password"
+          type="password"
+          value={passwordConfirmation}
+          onChange={setPasswordConfirmation}
+        />
+        <input type="submit" value="Register" />
+      </form>
     </div>
   );
 };
