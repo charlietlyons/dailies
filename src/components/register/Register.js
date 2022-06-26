@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import usePads from "../common/hooks/usePads";
 import useInput from "../common/hooks/useInput";
 
 import styles from "./Register.module.css";
@@ -8,23 +9,17 @@ const Register = (props) => {
   const [user, setUser] = useInput();
   const [password, setPassword] = useInput();
   const [passwordConfirmation, setPasswordConfirmation] = useInput();
+  const { registerWithPads } = usePads();
 
   const submitHandler = useCallback(
     (event) => {
       event.preventDefault();
       if (user && password && password === passwordConfirmation) {
-        fetch("http://localhost:3001/user/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            user: user,
-            password: password,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
+        registerWithPads({ user, password }, (response) => {
+          response.json().then((data) => {
             console.log(data);
           });
+        });
       }
     },
     [user, password, passwordConfirmation]

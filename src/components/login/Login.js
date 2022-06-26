@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { LOGIN } from "../../reducers/Actions";
 import useInput from "../common/hooks/useInput";
+import usePads from "../common/hooks/usePads";
 
 import styles from "./Login.module.css";
 
@@ -9,6 +10,7 @@ const Login = (props) => {
   const { shouldReveal } = props;
   const [user, changeUserHandler] = useInput("");
   const [password, changePasswordHandler] = useInput("");
+  const { loginToPads } = usePads();
 
   const dispatch = useDispatch();
 
@@ -16,16 +18,8 @@ const Login = (props) => {
     (event) => {
       event.preventDefault();
       if (user && password) {
-        fetch("http://localhost:3001/user/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            user: user,
-            password: password,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
+        loginToPads({ user, password }, (response) => {
+          response.json().then((data) => {
             localStorage.setItem("PADS_TOKEN", data.token);
             dispatch({
               type: LOGIN,
@@ -33,6 +27,7 @@ const Login = (props) => {
               status: data.status,
             });
           });
+        });
       }
     },
     [user, password]

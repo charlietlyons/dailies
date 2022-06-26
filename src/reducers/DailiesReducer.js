@@ -15,6 +15,7 @@ const DailiesReducer = (
   action
 ) => {
   const { incompleteDailies, completedDailies } = state;
+
   switch (action.type) {
     case SELECT_DAILY:
       const newSelected = incompleteDailies.find(

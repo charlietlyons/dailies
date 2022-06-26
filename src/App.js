@@ -10,6 +10,7 @@ import Percentage from "./components/percentage/Percentage";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { LOGIN } from "./reducers/Actions";
+import usePads from "./components/common/hooks/usePads";
 
 const App = () => {
   const isLoggedIn = useSelector((store) => store.login.isLoggedIn);
@@ -21,22 +22,17 @@ const App = () => {
       100
     );
   });
+  const { checkAccess } = usePads();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("http://localhost:3001/user/access", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: localStorage.getItem("PADS_TOKEN"),
-      },
-    }).then((response) => {
+    checkAccess((response) => {
       dispatch({
         type: LOGIN,
         status: response.status === 200 ? "good" : "bad",
       });
     });
-  }, [isLoggedIn]);
+  });
 
   return (
     <section>
