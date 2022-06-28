@@ -4,7 +4,9 @@ import useHttp from "./useHttp";
 
 const usePads = () => {
   const commonHeaders = { "Content-Type": "application/json" };
-  
+
+  // const username = useSelector((store) => )
+
   const isLoggedIn = useSelector((store) => store.login.isLoggedIn);
   const { callUsingFetch } = useHttp();
 
@@ -13,7 +15,7 @@ const usePads = () => {
       "http://localhost:3001/user/login",
       {
         method: "POST",
-        headers: { ...commonHeaders },
+        headers: commonHeaders,
         body: JSON.stringify({
           user: credentials.user,
           password: credentials.password,
@@ -31,7 +33,7 @@ const usePads = () => {
       "http://localhost:3001/user/register",
       {
         method: "POST",
-        headers: { ...commonHeaders },
+        headers: commonHeaders,
         body: JSON.stringify({
           user: credentials.user,
           password: credentials.password,
@@ -58,10 +60,27 @@ const usePads = () => {
     [isLoggedIn]
   );
 
+  const retrieveDailies = useCallback((callback) => {
+    callUsingFetch(
+      "http://localhost:3001/daily",
+      {
+        method: "GET",
+        headers: {
+          ...commonHeaders,
+          authorization: localStorage.getItem("PADS_TOKEN"),
+        },
+      },
+      async (response) => {
+        callback(await response.json());
+      }
+    );
+  }, []);
+
   return {
     loginToPads,
     registerWithPads,
     checkAccess,
+    retrieveDailies,
   };
 };
 
