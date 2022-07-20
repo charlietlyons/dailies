@@ -14,14 +14,6 @@ import usePads from "./components/common/hooks/usePads";
 
 const App = () => {
   const isLoggedIn = useSelector((store) => store.login.isLoggedIn);
-  const percentage = useSelector((store) => {
-    return (
-      (store.dailies.completedDailies.length /
-        (store.dailies.incompleteDailies.length +
-          store.dailies.completedDailies.length)) *
-      100
-    );
-  });
   const { checkAccess } = usePads();
   const dispatch = useDispatch();
 
@@ -39,7 +31,7 @@ const App = () => {
       <Header/>
       {(isLoggedIn && (
         <>
-          <Percentage percentage={percentage} />
+          <Percentage />
           <Dailies />
         </>
       )) || <LoginRegisterContainer />}

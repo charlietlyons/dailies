@@ -1,56 +1,31 @@
-import { DELETE_DAILY, SELECT_DAILY } from "./Actions";
+import { DELETE_DAILY, SELECT_DAILY, LOAD_DAILIES } from "./Actions";
 
 const DailiesReducer = (
   state = {
-    completedDailies: [],
-    incompleteDailies: [
-      { title: "Budget" },
-      { title: "Journal" },
-      { title: "Email" },
-      { title: "Exercise" }
-    ],
-    selected: { title: "Budget" },
-    offset: 0,
+    dailies: [],
+    finishedDailies: [],
   },
   action
 ) => {
-  const { incompleteDailies, completedDailies } = state;
-
-  switch (action.type) {
-    case SELECT_DAILY:
-      const newSelected = incompleteDailies.find(
-        (daily) => daily.title === action.selected.title
-      );
-
+  const {type, newlySelectedDailyId, dailiesFromPads} = action;
+  const {dailies, finishedDailies } = state;
+  const allDailies = [...dailies, ...finishedDailies]
+  const newPercentageCompleted = parseInt((finishedDailies.length/allDailies.length)*100); 
+  
+  switch (type) {
+    case LOAD_DAILIES:
       return {
-        incompleteDailies,
-        completedDailies,
-        selected: newSelected,
-        offset:
-          (incompleteDailies.indexOf(newSelected) / incompleteDailies.length) *
-          100,
-      };
+        dailies: dailiesFromPads,
+        finishedDailies: finishedDailies,
+        percentageCompleted: newPercentageCompleted
+      }
     case DELETE_DAILY:
-      const dailyToShiftTo =
-        incompleteDailies[
-          incompleteDailies.findIndex(
-            (daily) => action.selected.title === daily.title
-          ) + 1
-        ];
-      const filteredDailies = incompleteDailies.filter(
-        (daily) => daily.title !== action.selected.title
-      );
-      const newCompletedDailies = completedDailies.map(daily => daily);
-      newCompletedDailies.push(action.selected);
-
+      const dailyToDelete = dailies.find((daily) => daily._id === newlySelectedDailyId);
       return {
-        incompleteDailies: filteredDailies,
-        completedDailies: newCompletedDailies,
-        selected: dailyToShiftTo,
-        offset:
-          (incompleteDailies.indexOf(dailyToShiftTo) / filteredDailies.length) *
-          100,
-      };
+        dailies: dailies.filter((daily) => daily._id !== newlySelectedDailyId),
+        finishedDailies: [ ...finishedDailies, dailyToDelete],
+        percentageCompleted: parseInt(((finishedDailies.length+1)/allDailies.length)*100) 
+      }
   }
 
   return state;

@@ -1,28 +1,30 @@
 import { useDispatch } from "react-redux";
 import { DELETE_DAILY, SELECT_DAILY } from "../../reducers/Actions";
+
 import styles from "./Daily.module.css";
 
 const Daily = (props) => {
-  const { id, title, children } = props
+  const { id, title, children } = props;
+
   const dispatch = useDispatch();
 
   return (
-    <li
-      key={props.id + "-" + props.title}
+    <div
+      className={styles.daily}
       onClick={() =>
-        dispatch({ type: SELECT_DAILY, selected: { title: props.title } })
+        dispatch({ type: SELECT_DAILY, newlySelectedDailyId: id })
       }
     >
       <h3>{title}</h3>
       {children}
       <button
-        onClick={() =>
-          dispatch({ type: DELETE_DAILY, selected: { title: props.title } })
+        onClick={() => 
+          dispatch({ type: DELETE_DAILY, newlySelectedDailyId: id })
         }
       >
         Done
       </button>
-    </li>
+    </div>
   );
 };
 
