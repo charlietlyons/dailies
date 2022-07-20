@@ -32,11 +32,11 @@ const App = () => {
         status: response.status === 200 ? "good" : "bad",
       });
     });
-  });
+  }, []);
 
   return (
     <section>
-      <Header>Dailies</Header>
+      <Header/>
       {(isLoggedIn && (
         <>
           <Percentage percentage={percentage} />

@@ -22,7 +22,7 @@ const Dailies = () => {
       console.log(data.dailies[0]);
       setDailiesFromPads(data.dailies);
     });
-  }, [retrieveDailies, dailiesFromPads]);
+  }, [retrieveDailies]);
 
   return (
     <div className={styles.dailiesContainer}>

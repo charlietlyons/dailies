@@ -1,11 +1,9 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import useHttp from "./useHttp";
 
 const usePads = () => {
   const commonHeaders = { "Content-Type": "application/json" };
-
-  // const username = useSelector((store) => )
 
   const isLoggedIn = useSelector((store) => store.login.isLoggedIn);
   const { callUsingFetch } = useHttp();
@@ -22,8 +20,10 @@ const usePads = () => {
         }),
       },
       (response) => {
+        if (response.status === 200) {
+          callback(response);
+        }
         console.log(response);
-        callback(response);
       }
     );
   }, []);
