@@ -1,4 +1,5 @@
 // ------------------Dailies Actions
+export const LOAD_DAILIES = "LOAD";
 export const DELETE_DAILY = "DELETE";
 export const SELECT_DAILY = "SELECT";
 

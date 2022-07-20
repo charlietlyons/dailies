@@ -1,11 +1,12 @@
 .dailies {
-    display: flex;
-    list-style-type: none;
-    position: fixed;
-    left: 50%;
+  width: 10px;
+  display: flex;
+  list-style-type: none;
 }
 
 .dailiesContainer {
-    width: 100%;
-    position: relative;
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow-x: scroll;
 }

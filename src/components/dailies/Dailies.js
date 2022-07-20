@@ -1,26 +1,38 @@
 import Daily from "../daily/Daily";
-import { useSelector } from "react-redux";
-
+import { LOAD_DAILIES } from "../../reducers/Actions";
 import styles from "./Dailies.module.css";
-import { useDispatch } from "react-redux";
+import usePads from "../common/hooks/usePads";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Dailies = () => {
-  const dailies = useSelector((state) => state.dailies.incompleteDailies);
-  const offset = useSelector((state) => state.dailies.offset);
-  const offsetStyling = {
-    transform: "translateX(-" + offset + "%) translateX(-150px)",
-    transition: "transform .75s ease-in-out",
-  };
+  const { retrieveDailies } = usePads();
+  const dailies = useSelector((store) => { return store.dailies.dailies });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    retrieveDailies((data) => {
+      dispatch({
+        type: LOAD_DAILIES,
+        dailiesFromPads: data.dailies
+      });
+    });
+  }, [retrieveDailies]);
 
   return (
     <div className={styles.dailiesContainer}>
-      <ul style={offsetStyling} className={styles.dailies}>
+      <ul className={styles.dailies}>
         {dailies.length > 0 &&
           dailies.map((daily, index) => {
             return (
-              <Daily id={index} title={daily.title}>
-                {daily.children ? daily.children : null}
-              </Daily>
+              (
+                <li key={index}>
+                  <Daily id={daily._id} title={daily.title}>
+                    {daily.children ? daily.children : null}
+                  </Daily>
+                </li>
+                
+              )
             );
           })}
       </ul>
