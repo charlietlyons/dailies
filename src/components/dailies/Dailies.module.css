@@ -8,5 +8,5 @@
   width: 100%;
   height: auto;
   position: relative;
-  overflow-x: scroll;
+  overflow-x: auto;
 }

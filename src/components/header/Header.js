@@ -4,13 +4,13 @@ import { LOGOUT } from "../../reducers/Actions";
 import styles from "./Header.module.css";
 
 const Header = () => {
-  const username = useSelector((store) => store.login.username);
+  const { username, isLoggedIn } = useSelector((store) => store.login);
   const dispatch = useDispatch();
 
   return (
     <header>
       {username ? `${username}'s ` : ""} Dailies
-      {username ? (
+      {isLoggedIn ? (
         <button onClick={() => dispatch({ type: LOGOUT })}>Logout</button>
       ) : (
         ""

@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import usePads from "../common/hooks/usePads";
 import useInput from "../common/hooks/useInput";
 
